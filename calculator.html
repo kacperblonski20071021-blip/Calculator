@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+    <h1>My calculator</h1>
+    <hr>
+    <div id="container">
+        <div id="result">
+        </div>
+        <br>
+        <div id="buttons">
+        <button id="delete" class="buttons" value="Delete">Del</button>
+        <button id="clear" class="buttons" value="clear">AC</button>
+        <button id="percentage" class="buttons" value="%">%</button>
+        <button id="divide" class="buttons" value="/">/</button>
+        <button id="seven" class="buttons" value="7">7</button>
+        <button id="eight" class="buttons" value="8">8</button>
+        <button id="nine" class="buttons" value="9">9</button>
+        <button id="multiply" class="buttons" value="*">x</button>
+        <button id="four" class="buttons" value="4">4</button>
+        <button id="five" class="buttons" value="5">5</button>
+        <button id="six" class="buttons" value="6">6</button>
+        <button id="minus" class="buttons" value="-">-</button>
+        <button id="one" class="buttons" value="1">1</button>
+        <button id="two" class="buttons" value="2">2</button>
+        <button id="three" class="buttons" value="3">3</button>
+        <button id="plus" class="buttons" value="+">+</button>
+        <button id="plusminus" class="buttons" value=" ">+/-</button>
+        <button id="zero" class="buttons" value="0">0</button>
+        <button id="comma" class="buttons" value=",">,</button>
+        <button id="equal" class="buttons" value="=">=</button>
+        </div>
+</body>
+<script>
+    const numbers = document.querySelectorAll('.buttons');
+const result = document.getElementById('result');
+
+numbers.forEach(button => {
+    button.addEventListener("click", () => {
+        const value = button.textContent;
+
+        if (value === "=") {
+            try {
+                result.textContent = eval(
+                    result.textContent.replace(/x/g, "*")
+                );
+            } catch {
+                result.textContent = "Error";
+            }
+
+        } else if (value === "AC") {
+            result.textContent = "";
+
+        } else if (value === "Del") {
+            result.textContent = result.textContent.slice(0, -1);
+        }
+         else if (value === "+/-") {
+        let expr = result.textContent;
+
+        let match = expr.match(/(-?\d+\.?\d*)$/);
+
+        if (match) {
+            let number = match[0];
+            let toggled = number.startsWith("-")
+                ? number.slice(1)
+                : "-" + number;
+
+            result.textContent = expr.slice(0, -number.length) + toggled;
+        }
+}
+            else {
+                result.textContent += value;
+            }
+        });
+    });
+</script>
+</html>
